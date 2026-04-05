@@ -36,8 +36,12 @@ Ensure you have the required libraries installed:
 pip install -r requirements.txt
 ```
 
-### 2. Download Dataset
-Place the `fer2013.csv` file in the `data/` directory.
+### 2. Dataset
+
+Download dataset from:
+👉 [https://your-link-here](https://drive.google.com/file/d/1Phf0C8W7Q1dwDNWbueBDs5lBrpk9s05G/view)
+
+Place it inside the `data/` folder:
 
 ### 3. Train Models
 Run the training script to generate the preprocessor and models:
