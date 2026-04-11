@@ -83,7 +83,7 @@ def build_preprocessor(X_train: np.ndarray):
     Fit StandardScaler + PCA on TRAINING data ONLY.
     Returns fitted pipeline (to be applied to val/test later).
     """
-    print(f"\n[2/6] Building preprocessor: StandardScaler → PCA({N_PCA})")
+    print(f"\n[2/6] Building preprocessor: StandardScaler -> PCA({N_PCA})")
     preprocessor = Pipeline([
         ("scaler", StandardScaler()),
         ("pca",    PCA(n_components=N_PCA, random_state=42))
@@ -131,7 +131,7 @@ def train_and_evaluate(models, X_train_pca, y_train, X_val_pca, y_val):
     print(f"\n[3/6] Training {len(models)} models...\n")
 
     for name, model in models.items():
-        print(f"  ── Training: {name}")
+        print(f"  -- Training: {name}")
         t0 = time.time()
         model.fit(X_train_pca, y_train)
         elapsed = time.time() - t0
@@ -182,7 +182,7 @@ def save_confusion_matrices(results):
         emotion_names = [EMOTION_LABELS[i] for i in range(7)]
 
         fig, axes = plt.subplots(1, 3, figsize=(18, 5))
-        fig.suptitle("Confusion Matrices — Validation Set", fontsize=14)
+        fig.suptitle("Confusion Matrices - Validation Set", fontsize=14)
 
         for ax, (name, res) in zip(axes, results.items()):
             sns.heatmap(
@@ -212,7 +212,7 @@ def save_artifacts(preprocessor, results):
 
     # Save preprocessor (scaler + PCA bundled)
     pre_path = os.path.join(MODELS_DIR, "preprocessor.pkl")
-    joblib.dump(preprocessor, pre_path)
+    joblib.dump(preprocessor, pre_path, protocol=2)
     print(f"      Saved → {pre_path}")
 
     # Save each model
@@ -226,7 +226,7 @@ def save_artifacts(preprocessor, results):
     for name, res in results.items():
         fname = filename_map[name]
         fpath = os.path.join(MODELS_DIR, fname)
-        joblib.dump(res["model"], fpath)
+        joblib.dump(res["model"], fpath, protocol=2)
         summary[name] = {
             "val_acc": round(res["val_acc"], 4),
             "val_f1":  round(res["val_f1"],  4)
@@ -235,7 +235,7 @@ def save_artifacts(preprocessor, results):
 
     # Save summary as a small joblib dict (used by Streamlit for comparison table)
     summary_path = os.path.join(MODELS_DIR, "model_summary.pkl")
-    joblib.dump(summary, summary_path)
+    joblib.dump(summary, summary_path, protocol=2)
     print(f"      Saved → {summary_path}")
 
 
@@ -244,7 +244,7 @@ def save_artifacts(preprocessor, results):
 # ─────────────────────────────────────────────
 def main():
     print("=" * 55)
-    print("  STRESS LEVEL ESTIMATOR — TRAINING PIPELINE")
+    print("  STRESS LEVEL ESTIMATOR - TRAINING PIPELINE")
     print("=" * 55)
 
     # 1. Load data
@@ -277,7 +277,7 @@ def main():
 
     # Summary table
     print("\n" + "=" * 55)
-    print("  TRAINING COMPLETE — SUMMARY")
+    print("  TRAINING COMPLETE - SUMMARY")
     print("=" * 55)
     print(f"  {'Model':<18} {'Val Acc':>8} {'Val F1':>8} {'Time':>8}")
     print("  " + "-" * 44)
