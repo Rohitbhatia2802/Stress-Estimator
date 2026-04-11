@@ -212,7 +212,7 @@ def save_artifacts(preprocessor, results):
 
     # Save preprocessor (scaler + PCA bundled)
     pre_path = os.path.join(MODELS_DIR, "preprocessor.pkl")
-    joblib.dump(preprocessor, pre_path, protocol=2)
+    joblib.dump(preprocessor, pre_path)
     print(f"      Saved → {pre_path}")
 
     # Save each model
@@ -226,7 +226,7 @@ def save_artifacts(preprocessor, results):
     for name, res in results.items():
         fname = filename_map[name]
         fpath = os.path.join(MODELS_DIR, fname)
-        joblib.dump(res["model"], fpath, protocol=2)
+        joblib.dump(res["model"], fpath)
         summary[name] = {
             "val_acc": round(res["val_acc"], 4),
             "val_f1":  round(res["val_f1"],  4)
@@ -235,7 +235,7 @@ def save_artifacts(preprocessor, results):
 
     # Save summary as a small joblib dict (used by Streamlit for comparison table)
     summary_path = os.path.join(MODELS_DIR, "model_summary.pkl")
-    joblib.dump(summary, summary_path, protocol=2)
+    joblib.dump(summary, summary_path)
     print(f"      Saved → {summary_path}")
 
 
